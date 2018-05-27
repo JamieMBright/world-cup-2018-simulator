@@ -19,7 +19,7 @@ The usage is as simple as `world_cup_simulator(reporting=True)`.
 Have fun!
 Jamie
 
-# example output from world_cup_simulator(reporting=True)
+# Example Output
 ```
                GROUP A
           RUS  1 - 0  SAU
