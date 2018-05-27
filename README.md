@@ -19,8 +19,8 @@ The usage is as simple as `world_cup_simulator(reporting=True)`.
 Have fun!
 Jamie
 
-# example output from `world_cup_simulator(reporting=True)`
-
+# example output from world_cup_simulator(reporting=True)
+```
                GROUP A
           RUS  1 - 0  SAU
           RUS  1 - 1  EGY
@@ -203,3 +203,4 @@ Jamie
           BEL  1 - 0  GER
 
   Belgium are World Cup 2018 Champions!
+```
