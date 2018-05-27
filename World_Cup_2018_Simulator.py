@@ -2,6 +2,10 @@ import itertools
 from random import random, randint
 import texttable
 import operator
+from collections import Counter
+import pprint
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 # the fixture function finds the result of the two teams and updates the team class as appropriate
@@ -229,5 +233,63 @@ class Team:
         return f'{self.team}'
 
 
-# Use the simulator
+#####################################################################################################################
+#                                          Use cases of the simulator
+#####################################################################################################################
+#
+# Use the simulator once and print the results
 world_cup_simulator(reporting=True)
+
+## Return the class instance of the winning team without reporting the results
+# champions = world_cup_simulator(reporting=False)
+#
+## Perform multiple world cups and print out only the winner
+# for i in range(100):
+#     print(world_cup_simulator(reporting=False))
+#
+#
+## The user interaction version from JezPalf returning the top 5 winners
+# def multiple_simulations(n):
+#     winners = []
+#     for _ in range(n):
+#         winners.append(str((world_cup_simulator(reporting=False))))
+#
+#     top_five = Counter(winners).most_common(5)
+#     print('The teams with the most world cup wins are:')
+#     pprint.pprint(top_five)
+#
+#
+# answer = input('Would you like a [d]etailed simulation or run [m]ultiple simulations? ')
+# if answer == 'd':
+#     world_cup_simulator(reporting=True)
+#
+# elif answer == 'm':
+#     num = int(input('How many times would you like to run the simulation? '))
+#     multiple_simulations(num)
+#
+## Create statistics of all teams over many world cups
+# winners = []
+# n = 1000
+# for i in range(n):
+#     champs = world_cup_simulator(reporting=False)
+#     print(str(i) + ': ' + str(champs))
+#     winners.append(str(champs))
+#
+# world_cup_winners = Counter(winners).most_common()[:-32-1:-1]
+#
+# teams = []
+# tally = np.zeros((len(world_cup_winners)))
+# for i in range(len(world_cup_winners)):
+#     teams.append(world_cup_winners[i][0])
+#     tally[i] = world_cup_winners[i][1]
+#
+# fig, ax = plt.subplots()
+# plt.barh(np.arange(0, len(world_cup_winners)), tally, tick_label=teams)
+# plt.xlabel('Number of World Cups Won')
+# plt.title(str(int(n/1000)) + 'k World Cup Simulations')
+# for i, v in enumerate(tally):
+#     ax.text(v + int(round(n*0.001)), i-0.25, str(int(v)), color='black', fontweight='bold')
+# plt.savefig('results.png', dpi=300, format='png', bbox_inches='tight')
+# plt.show()
+
+
