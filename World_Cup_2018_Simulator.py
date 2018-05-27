@@ -113,8 +113,8 @@ def group_stages(teams_in_group, reporting):
             table.add_row([sorted_group[x].team, sorted_group[x].result, sorted_group[x].goals_forward,
                            sorted_group[x].goal_difference, sorted_group[x].points])
 
-        table.set_cols_align(['l', 'l', 'l', 'l', 'l'])
-        table.set_cols_width([8, 7, 7, 7, 7])
+        table.set_cols_align(['l', 'r', 'r', 'r', 'r'])
+        table.set_cols_width([15, 7, 7, 7, 7])
         table.set_chars(['', '', '', '='])
 
         if reporting:
@@ -230,4 +230,4 @@ class Team:
 
 
 # Use the simulator
-print(world_cup_simulator(reporting=True))
+world_cup_simulator(reporting=True)
