@@ -76,8 +76,7 @@ def football_fixture(team1, team2, draws_allowed, reporting):
     team2.fixtures += team1.team + ', ' + team2.result[-1]
     # report result
     if reporting:
-        print('                        ' + team1.code + '  ' + str(team1_goals) + ' - ' + str(
-            team2_goals) + '  ' + team2.code)
+        print('          ' + team1.code + '  ' + str(team1_goals) + ' - ' + str( team2_goals) + '  ' + team2.code)
 
     if not draws_allowed:
         if team1_goals > team2_goals:
@@ -92,7 +91,7 @@ def group_stages(teams_in_group, reporting):
     for i in range(8):  # 8 groups A to H
         this_group = teams_in_group[i]
         if reporting:
-            print('\n\n                            GROUP ' + this_group[0].group)
+            print('\n               GROUP ' + this_group[0].group)
             # find all the fixtures for this group
         group_fixtures = list(itertools.combinations(this_group, 2))
         # play each fixture
@@ -107,16 +106,16 @@ def group_stages(teams_in_group, reporting):
         sorted_group.reverse()
 
         # build league tales using text table
-        headers = ['Team', 'Form', 'GF', 'GD', 'Pts']
+        headers = ['Group ' + this_group[0].group, 'Form', 'GF', 'GD', 'Pts']
         table = texttable.Texttable()
         table.header(headers)
         for x in range(4):
-            table.add_row([sorted_group[x].code, sorted_group[x].result, sorted_group[x].goals_forward,
+            table.add_row([sorted_group[x].team, sorted_group[x].result, sorted_group[x].goals_forward,
                            sorted_group[x].goal_difference, sorted_group[x].points])
 
-        table.set_cols_align(['l', 'c', 'c', 'c', 'c'])
+        table.set_cols_align(['l', 'l', 'l', 'l', 'l'])
         table.set_cols_width([8, 7, 7, 7, 7])
-        table.set_chars(['-', '', '', '"'])
+        table.set_chars(['', '', '', '='])
 
         if reporting:
             print(table.draw())
@@ -135,7 +134,7 @@ def final_stage(final_16, reporting):
     #   0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15
     # final 16
     if reporting:
-        print('\n                        Round of 16')
+        print('\n            Round of 16')
     # 1A v 2B (Match 49)
     match_49 = football_fixture(final_16[0], final_16[3], draws_allowed=False, reporting=reporting)
     # 1C v 2D (Match 50)
@@ -155,7 +154,7 @@ def final_stage(final_16, reporting):
 
     # Quarter finals
     if reporting:
-        print('\n                        Quarter-finals')
+        print('\n          Quarter-finals')
     # Winner match 49 v Winner match 50 (Match 57)
     match_57 = football_fixture(match_49, match_50, draws_allowed=False, reporting=reporting)
     # Winner match 53 v Winner match 54 (Match 58)
@@ -167,7 +166,7 @@ def final_stage(final_16, reporting):
 
     # Semi-finals
     if reporting:
-        print('\n                        Semi-finals')
+        print('\n            Semi-finals')
     # Winner match 57 v Winner match 58 (Match 61)
     match_61 = football_fixture(match_57, match_58, draws_allowed=False, reporting=reporting)
     # Winner match 59 v Winner match 60 (Match 62)
@@ -175,9 +174,12 @@ def final_stage(final_16, reporting):
 
     # Finals
     if reporting:
-        print('\n                        Final')
+        print('\n               Final')
     # Winner match 61 v Winner match 62 (Match 63)
     world_cup_champions = football_fixture(match_61, match_62, draws_allowed=False, reporting=reporting)
+
+    if reporting:
+        print('\n  ' + world_cup_champions.team + ' are World Cup 2018 Champions!')
 
     return world_cup_champions
 
