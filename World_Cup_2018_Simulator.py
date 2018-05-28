@@ -95,7 +95,7 @@ def group_stages(teams_in_group, reporting):
     for i in range(8):  # 8 groups A to H
         this_group = teams_in_group[i]
         if reporting:
-            print('\n               GROUP ' + this_group[0].group)
+            print('\n              GROUP ' + this_group[0].group)
             # find all the fixtures for this group
         group_fixtures = list(itertools.combinations(this_group, 2))
         # play each fixture
@@ -118,7 +118,8 @@ def group_stages(teams_in_group, reporting):
                            sorted_group[x].goal_difference, sorted_group[x].points])
 
         table.set_cols_align(['l', 'r', 'r', 'r', 'r'])
-        table.set_cols_width([15, 7, 7, 7, 7])
+        table.set_cols_width([10, 5, 5, 5, 5])
+
         table.set_chars(['', '', '', '='])
 
         if reporting:
