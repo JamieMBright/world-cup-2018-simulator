@@ -56,6 +56,7 @@ def update_world_points(team1, team2, team1_goals, team2_goals):
     team1.fifa_points = team1_new_points
     team2.fifa_points = team2_new_points
 
+
 # the fixture function finds the result of the two teams and updates the team class as appropriate
 def football_fixture(team1, team2, draws_allowed, reporting):
     # use rank to set win conditions
@@ -84,11 +85,11 @@ def football_fixture(team1, team2, draws_allowed, reporting):
 
         if delta >= 0:
             # this is the most likely result
-            team1_goals = randint(1, int(round(0.0027 * delta + 2)))
-            team2_goals = min([team1_goals - 1, int(round(-0.0009 * delta + 2))])
+            team1_goals = randint(1, max([1, int(round(0.0027 * delta + 2) + team1.goal_potential)]))
+            team2_goals = min([team1_goals - 1, max([1, int(round(-0.0009 * delta + 2) + team2.goal_potential)])])
         else:
-            team1_goals = randint(1, int(round(-0.0009 * abs(delta) + 2)))
-            team2_goals = min([team1_goals - 1, int(round(0.0027 * abs(delta) + 2))])
+            team1_goals = randint(1, max([1, int(round(-0.0009 * abs(delta) + 2) + team1.goal_potential)]))
+            team2_goals = min([team1_goals - 1, max([1, int(round(0.0027 * abs(delta) + 2) + team2.goal_potential)])])
 
     elif r < win_condition_2 and draws_allowed:
         # then we have a draw
@@ -96,7 +97,7 @@ def football_fixture(team1, team2, draws_allowed, reporting):
         team1.result = team1.result + 'D'
         team2.points += 1
         team2.result = team2.result + 'D'
-        draw_goals = randint(0, int(round(-0.0036 * delta + 3)))
+        draw_goals = randint(0, 2 + round((team1.goal_potential + team2.goal_potential)/2))
         team1_goals = draw_goals
         team2_goals = draw_goals
 
@@ -108,11 +109,11 @@ def football_fixture(team1, team2, draws_allowed, reporting):
 
         if delta >= 0:
             # this is the most likely result
-            team2_goals = randint(1, int(round(0.0027 * delta + 2)))
-            team1_goals = min([team2_goals - 1, int(round(-0.0009 * delta + 2))])
+            team2_goals = randint(1, max([1, int(round(0.0027 * delta + 2) + team2.goal_potential)]))
+            team1_goals = min([team2_goals - 1, max([1, int(round(-0.0009 * delta + 2) + team1.goal_potential)])])
         else:
-            team2_goals = randint(1, int(round(-0.0009 * abs(delta) + 2)))
-            team1_goals = min([team2_goals - 1, int(round(0.0027 * abs(delta) + 2))])
+            team2_goals = randint(1, max([1, int(round(-0.0009 * abs(delta) + 2) + team2.goal_potential)]))
+            team1_goals = min([team2_goals - 1, max([1, int(round(0.0027 * abs(delta) + 2) + team1.goal_potential)])])
 
     # update the goal differences for each team for group stages
     if draws_allowed:
@@ -252,9 +253,9 @@ def world_cup_simulator(reporting):
     # load csv
     with open('teams.csv', 'r') as f:
         for line in f.readlines()[1:]:
-            team, code, world_rank, points, points_this_year, confederation_weight, group = line.strip().split(',')
+            team, code, world_rank, points, points_this_year, confederation_weight, group, goal_potential, home_advantage = line.strip().split(',')
             # define Team class
-            teams_list.append(Team(team, code, world_rank, points, points_this_year, confederation_weight, group))
+            teams_list.append(Team(team, code, world_rank, points, points_this_year, confederation_weight, group, goal_potential, home_advantage))
 
     # isolate the teams by the group they appear in
     teams_in_group = [(list(g)) for _, g in itertools.groupby(teams_list, lambda x: x.group)]
@@ -270,13 +271,15 @@ def world_cup_simulator(reporting):
 
 # define the team class
 class Team:
-    def __init__(self, team, code, world_rank, points, points_this_year, confederation_weight, group):
+    def __init__(self, team, code, world_rank, points, points_this_year, confederation_weight, group, goal_potential, home_advantage):
         self.team = team
         self.code = code
         self.world_rank = int(world_rank)
         self.group = group
+        self.goal_potential = int(goal_potential)
+        self.home_advantage = int(home_advantage)
         self.confederation_weight = float(confederation_weight)
-        self.fifa_points = float(points)
+        self.fifa_points = float(points) + 200 * int(home_advantage)
         self.fixtures = []
         self.points = 0
         self.result = ''
@@ -297,7 +300,7 @@ class Team:
 #####################################################################################################################
 #
 # Use the simulator once and print the results
-run_example = False
+run_example = True
 if run_example:
     world_cup_simulator(reporting=True)
 
@@ -337,10 +340,10 @@ if run_example:
 
 
 # Create statistics of all teams over many world cups
-run_example = True
+run_example = False
 if run_example:
     winners = []
-    n = 100000
+    n = 1000
     for i in range(n):
         champs = world_cup_simulator(reporting=False)
         print(str(i) + ': ' + str(champs))

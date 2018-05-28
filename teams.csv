@@ -1,33 +1,33 @@
-Team name,Code,World rank,FIFA points,FIFA points last year,Confederation index,Group
-Russia,RUS,66,493,211.16,0.99,A
-Saudi Arabia,SAU,67,462,143.97,0.85,A
-Egypt,EGY,46,636,212.5,0.85,A
-Uruguay,URU,17,976,437.65,1,A
-Portugal,POR,4,1306,687.22,0.99,B
-Spain,SPA,8,1162,571.55,0.99,B
-Morocco,MOR,42,671,359.9,0.85,B
-Iran,IRA,36,727,327.85,0.85,B
-France,FRA,7,1166,517.68,0.99,C
-Australia,AUS,40,700,361.51,0.85,C
-Peru,PER,11,1106,585.98,1,C
-Denmark,DEN,12,1054,725.7,0.99,C
-Argentina,ARG,5,1254,418.94,1,D
-Iceland,ICE,22,930,487.38,0.99,D
-Croatia,CRO,18,975,448.53,0.99,D
-Nigeria,NIG,47,635,274.01,0.85,D
-Brazil,BRA,2,1384,569.52,1,E
-Switzerland,SWI,6,1179,594.33,0.99,E
-Costa Rica,COS,25,858,406.15,0.85,E
-Serbia,SER,35,732,417.12,0.99,E
-Germany,GER,1,1544,784.89,0.99,F
-Mexico,MEX,15,1008,464.84,0.85,F
-Sweden,SWE,23,889,507.67,0.99,F
-Korea Republic,SOU,61,520,159.92,0.85,F
-Belgium,BEL,3,1346,684.48,0.99,G
-Panama,PAN,55,574,284.77,0.85,G
-Tunisia,TUN,14,1012,481.83,0.85,G
-England,ENG,13,1040,581.83,0.99,G
-Poland,POL,10,1128,499,0.99,H
-Senegal,SEN,28,825,389.94,0.85,H
-Colombia,COL,16,989,307.05,1,H
-Japan,JAP,60,528,177.16,0.85,H
+Team name,Code,World rank,FIFA points,FIFA points last year,Confederation index,Group,Goal potential,Home advantage
+Russia,RUS,66,493,211.16,0.99,A,-1,1
+Saudi Arabia,SAU,67,462,143.97,0.85,A,-1,0
+Egypt,EGY,46,636,212.5,0.85,A,1,0
+Uruguay,URU,17,976,437.65,1,A,2,0
+Portugal,POR,4,1306,687.22,0.99,B,1,0
+Spain,SPA,8,1162,571.55,0.99,B,1,0
+Morocco,MOR,42,671,359.9,0.85,B,0,0
+Iran,IRA,36,727,327.85,0.85,B,-1,0
+France,FRA,7,1166,517.68,0.99,C,2,0
+Australia,AUS,40,700,361.51,0.85,C,0,0
+Peru,PER,11,1106,585.98,1,C,0,0
+Denmark,DEN,12,1054,725.7,0.99,C,0,0
+Argentina,ARG,5,1254,418.94,1,D,2,0
+Iceland,ICE,22,930,487.38,0.99,D,0,0
+Croatia,CRO,18,975,448.53,0.99,D,0,0
+Nigeria,NIG,47,635,274.01,0.85,D,0,0
+Brazil,BRA,2,1384,569.52,1,E,2,0
+Switzerland,SWI,6,1179,594.33,0.99,E,0,0
+Costa Rica,COS,25,858,406.15,0.85,E,0,0
+Serbia,SER,35,732,417.12,0.99,E,0,0
+Germany,GER,1,1544,784.89,0.99,F,2,0
+Mexico,MEX,15,1008,464.84,0.85,F,0,0
+Sweden,SWE,23,889,507.67,0.99,F,0,0
+Korea Republic,SOU,61,520,159.92,0.85,F,-1,0
+Belgium,BEL,3,1346,684.48,0.99,G,2,0
+Panama,PAN,55,574,284.77,0.85,G,0,0
+Tunisia,TUN,14,1012,481.83,0.85,G,0,0
+England,ENG,13,1040,581.83,0.99,G,0,0
+Poland,POL,10,1128,499,0.99,H,0,0
+Senegal,SEN,28,825,389.94,0.85,H,0,0
+Colombia,COL,16,989,307.05,1,H,1,0
+Japan,JAP,60,528,177.16,0.85,H,-1,0
