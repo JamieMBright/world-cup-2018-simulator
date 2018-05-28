@@ -8,10 +8,58 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+def update_world_points(team1, team2, team1_goals, team2_goals):
+    def update_class_points(team, opponent, team_points):
+        # The match importance is supposed to be assigned 4 for world cup matches
+        # however, the intention of this update is to represent form throughout a tournament. Off the back of the win,
+        # there will be a higher probability of winning your next match on account of these having updated.
+        match_importance = 4
+        # calculate the opponent strength
+        # opponent strength is according to their world rankings. Germany == 200. Any team worse than 150 flatten at 50
+        opponent_strength = max([50, 201 - opponent.world_rank])
+        # strength of confederation. CONMEBOL = 1. UEAFA = 0.99, RoW = 0.85
+        confederation_strength = (team.confederation_weight + opponent.confederation_weight)/2
+        # calculate how many points this fixture earned
+        points_from_this_fixture = team_points * match_importance * opponent_strength * confederation_strength
+        print(team.team + ' points for this fixture: ' + str(int(points_from_this_fixture)))
+        # find the total points earned from this year so far
+        this_years_points_new = team.this_years_points * team.games_in_last_year + points_from_this_fixture
+        # update the number of games
+        team.games_in_last_year += 1
+        # re calculate the points earned this year (calculated as an average)
+        team.this_years_points = this_years_points_new / team.games_in_last_year
+        # update the total points of this team
+        print('Points change for ' + team.team + ' from ' + str(int(team.fifa_points)) + ' to '
+              + str(int(team.previous_years_points + team.this_years_points)))
+        new_fifa_points = team.previous_years_points + team.this_years_points
+        return new_fifa_points
+
+    if team1_goals > team2_goals:
+        # team1 wins
+        team1_points = 3
+        team2_points = 0
+
+    elif team2_goals > team1_goals:
+        # team2 wins
+        team1_points = 0
+        team2_points = 3
+
+    elif team1_goals == team2_goals:
+        # draw
+        team1_points = 1
+        team2_points = 1
+    else:
+        print('error in goaldiff')
+
+    team1_new_points = update_class_points(team1, team2, team1_points)
+    team2_new_points = update_class_points(team2, team1, team2_points)
+    team1.fifa_points = team1_new_points
+    team2.fifa_points = team2_new_points
+
 # the fixture function finds the result of the two teams and updates the team class as appropriate
 def football_fixture(team1, team2, draws_allowed, reporting):
     # use rank to set win conditions
-    delta = int(team1.rank) - int(team2.rank)
+    delta = int(team1.fifa_points) - int(team2.fifa_points)
     # positive delta = team 1 better than team 2
     # negative delta = team 2 better than team 1
     if delta >= 0:
@@ -78,6 +126,10 @@ def football_fixture(team1, team2, draws_allowed, reporting):
     # update the fixture history
     team1.fixtures += team2.team + ', ' + team1.result[-1]
     team2.fixtures += team1.team + ', ' + team2.result[-1]
+
+    # update the FIFA world rankings
+    update_world_points(team1, team2, team1_goals, team2_goals)
+
     # report result
     if reporting:
         print('          ' + team1.code + '  ' + str(team1_goals) + ' - ' + str( team2_goals) + '  ' + team2.code)
@@ -110,15 +162,15 @@ def group_stages(teams_in_group, reporting):
         sorted_group.reverse()
 
         # build league tales using text table
-        headers = ['Group ' + this_group[0].group, 'Form', 'GF', 'GD', 'Pts']
+        headers = ['Group ' + this_group[0].group, 'Form', 'GF', 'GD', 'Pts', 'fifa points']
         table = texttable.Texttable()
         table.header(headers)
         for x in range(4):
             table.add_row([sorted_group[x].team, sorted_group[x].result, sorted_group[x].goals_forward,
-                           sorted_group[x].goal_difference, sorted_group[x].points])
+                           sorted_group[x].goal_difference, sorted_group[x].points, int(sorted_group[x].fifa_points)])
 
-        table.set_cols_align(['l', 'r', 'r', 'r', 'r'])
-        table.set_cols_width([10, 5, 5, 5, 5])
+        table.set_cols_align(['l', 'r', 'r', 'r', 'r', 'r'])
+        table.set_cols_width([12, 5, 5, 5, 5, 10])
 
         table.set_chars(['', '', '', '='])
 
@@ -193,16 +245,16 @@ def final_stage(final_16, reporting):
 # returned the champions instance.
 def world_cup_simulator(reporting):
     # input data
-    # team name, FIFA rank, group ID
-    # 'England', 8, 'E'
+    # team name, 3 letter code, FIFA points, group ID
+    # 'England', ENG, 8, 'E'
 
     teams_list = []
     # load csv
     with open('teams.csv', 'r') as f:
         for line in f.readlines()[1:]:
-            team, code, rank, group = line.strip().split(',')
+            team, code, world_rank, points, points_this_year, confederation_weight, group = line.strip().split(',')
             # define Team class
-            teams_list.append(Team(team, code, rank, group))
+            teams_list.append(Team(team, code, world_rank, points, points_this_year, confederation_weight, group))
 
     # isolate the teams by the group they appear in
     teams_in_group = [(list(g)) for _, g in itertools.groupby(teams_list, lambda x: x.group)]
@@ -218,17 +270,23 @@ def world_cup_simulator(reporting):
 
 # define the team class
 class Team:
-    def __init__(self, team, code, rank, group):
+    def __init__(self, team, code, world_rank, points, points_this_year, confederation_weight, group):
         self.team = team
         self.code = code
-        self.rank = rank
+        self.world_rank = int(world_rank)
         self.group = group
+        self.confederation_weight = float(confederation_weight)
+        self.fifa_points = float(points)
         self.fixtures = []
         self.points = 0
         self.result = ''
         self.goal_difference = 0
         self.goals_forward = 0
         self.goals_against = 0
+        # Need the exact number of games here.
+        self.games_in_last_year = 10
+        self.this_years_points = float(points_this_year)
+        self.previous_years_points = float(points) - float(points_this_year)
 
     def __repr__(self):
         return f'{self.team}'
@@ -292,5 +350,3 @@ world_cup_simulator(reporting=True)
 #     ax.text(v + int(round(n*0.001)), i-0.25, str(int(v)), color='black', fontweight='bold')
 # plt.savefig('results.png', dpi=300, format='png', bbox_inches='tight')
 # plt.show()
-
-

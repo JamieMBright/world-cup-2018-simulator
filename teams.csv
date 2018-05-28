@@ -1,33 +1,33 @@
-Team name,Code,FIFA rank,Group
-Russia,RUS,493,A
-Saudi Arabia,SAU,462,A
-Egypt,EGY,636,A
-Uruguay,URU,976,A
-Portugal,POR,1306,B
-Spain,SPA,1162,B
-Morocco,MOR,671,B
-Iran,IRA,727,B
-France,FRA,1166,C
-Australia,AUS,700,C
-Peru,PER,1106,C
-Denmark,DEN,1054,C
-Argentina,ARG,1254,D
-Iceland,ICE,930,D
-Croatia,CRO,975,D
-Nigeria,NIG,635,D
-Brazil,BRA,1384,E
-Switzerland,SWI,1179,E
-Costa Rica,COS,858,E
-Serbia,SER,732,E
-Germany,GER,1544,F
-Mexico,MEX,1008,F
-Sweden,SWE,889,F
-South Korea,SOU,520,F
-Belgium,BEL,1346,G
-Panama,PAN,574,G
-Tunisia,TUN,1012,G
-England,ENG,1040,G
-Poland,POL,1128,H
-Senegal,SEN,825,H
-Colombia,COL,989,H
-Japan,JAP,528,H
+Team name,Code,World rank,FIFA points,FIFA points last year,Confederation index,Group
+Russia,RUS,66,493,211.16,0.99,A
+Saudi Arabia,SAU,67,462,143.97,0.85,A
+Egypt,EGY,46,636,212.5,0.85,A
+Uruguay,URU,17,976,437.65,1,A
+Portugal,POR,4,1306,687.22,0.99,B
+Spain,SPA,8,1162,571.55,0.99,B
+Morocco,MOR,42,671,359.9,0.85,B
+Iran,IRA,36,727,327.85,0.85,B
+France,FRA,7,1166,517.68,0.99,C
+Australia,AUS,40,700,361.51,0.85,C
+Peru,PER,11,1106,585.98,1,C
+Denmark,DEN,12,1054,725.7,0.99,C
+Argentina,ARG,5,1254,418.94,1,D
+Iceland,ICE,22,930,487.38,0.99,D
+Croatia,CRO,18,975,448.53,0.99,D
+Nigeria,NIG,47,635,274.01,0.85,D
+Brazil,BRA,2,1384,569.52,1,E
+Switzerland,SWI,6,1179,594.33,0.99,E
+Costa Rica,COS,25,858,406.15,0.85,E
+Serbia,SER,35,732,417.12,0.99,E
+Germany,GER,1,1544,784.89,0.99,F
+Mexico,MEX,15,1008,464.84,0.85,F
+Sweden,SWE,23,889,507.67,0.99,F
+Korea Republic,SOU,61,520,159.92,0.85,F
+Belgium,BEL,3,1346,684.48,0.99,G
+Panama,PAN,55,574,284.77,0.85,G
+Tunisia,TUN,14,1012,481.83,0.85,G
+England,ENG,13,1040,581.83,0.99,G
+Poland,POL,10,1128,499,0.99,H
+Senegal,SEN,28,825,389.94,0.85,H
+Colombia,COL,16,989,307.05,1,H
+Japan,JAP,60,528,177.16,0.85,H
